@@ -7,10 +7,6 @@ if sys.platform.startswith('win') and sys.version_info >= (3, 8):
 
 import os
 
-import os
-streamlit_config_path = os.path.join(os.getcwd(), ".streamlit")
-os.makedirs(streamlit_config_path, exist_ok=True)
-os.environ["STREAMLIT_CONFIG_DIR"] = streamlit_config_path
 
 import streamlit as st
 from dotenv import load_dotenv, find_dotenv
