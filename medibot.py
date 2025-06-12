@@ -6,6 +6,11 @@ if sys.platform.startswith('win') and sys.version_info >= (3, 8):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 import os
+
+# ✅ Force CPU usage to prevent CUDA-related errors
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
+os.environ["TRANSFORMERS_NO_CUDA"] = "1"
+
 import streamlit as st
 from dotenv import load_dotenv, find_dotenv
 
@@ -18,7 +23,7 @@ from langchain_core.prompts import PromptTemplate
 load_dotenv(find_dotenv())
 
 # Path to saved FAISS vector store
-DB_FAISS_PATH = "vectorstore/db_faiss"  # ✅ Fix here
+DB_FAISS_PATH = "vectorstore/db_faiss"  # ✅ Ensure this path is correct and exists
 
 
 # ✅ Cache the vector store loader to avoid reloading every time
@@ -36,7 +41,7 @@ def set_custom_prompt(custom_prompt_template):
 def load_llm(huggingface_repo_id, HF_TOKEN):
     llm = HuggingFaceEndpoint(
         repo_id=huggingface_repo_id,
-        huggingfacehub_api_token=HF_TOKEN,  # ✅ correct argument name
+        huggingfacehub_api_token=HF_TOKEN,  # ✅ Correct argument
         temperature=0.5,
         max_new_tokens=512
     )
