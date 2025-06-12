@@ -7,9 +7,10 @@ if sys.platform.startswith('win') and sys.version_info >= (3, 8):
 
 import os
 
-# ✅ Force CPU usage to prevent CUDA-related errors
-os.environ["CUDA_VISIBLE_DEVICES"] = ""
-os.environ["TRANSFORMERS_NO_CUDA"] = "1"
+import os
+streamlit_config_path = os.path.join(os.getcwd(), ".streamlit")
+os.makedirs(streamlit_config_path, exist_ok=True)
+os.environ["STREAMLIT_CONFIG_DIR"] = streamlit_config_path
 
 import streamlit as st
 from dotenv import load_dotenv, find_dotenv
@@ -23,7 +24,7 @@ from langchain_core.prompts import PromptTemplate
 load_dotenv(find_dotenv())
 
 # Path to saved FAISS vector store
-DB_FAISS_PATH = "vectorstore/db_faiss"  # ✅ Ensure this path is correct and exists
+DB_FAISS_PATH = "vectorstore/db_faiss"  # ✅ Fix here
 
 
 # ✅ Cache the vector store loader to avoid reloading every time
@@ -41,7 +42,7 @@ def set_custom_prompt(custom_prompt_template):
 def load_llm(huggingface_repo_id, HF_TOKEN):
     llm = HuggingFaceEndpoint(
         repo_id=huggingface_repo_id,
-        huggingfacehub_api_token=HF_TOKEN,  # ✅ Correct argument
+        huggingfacehub_api_token=HF_TOKEN,  # ✅ correct argument name
         temperature=0.5,
         max_new_tokens=512
     )
