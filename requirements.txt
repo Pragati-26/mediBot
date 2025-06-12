@@ -1,8 +1,8 @@
 streamlit
+python-dotenv
 langchain
 langchain-community
-langchain-core
 langchain-huggingface
+transformers
+torch
 sentence-transformers
-faiss-cpu
-python-dotenv
